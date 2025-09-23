@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  // Información de autenticación
   email: {
     type: String,
     required: true,
@@ -13,7 +12,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // Información personal y del consultorio
   firstName: {
     type: String,
     required: true
@@ -22,7 +20,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // Relación con el rol, idealmente un 'ObjectId' de la colección de roles
   role: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Role',

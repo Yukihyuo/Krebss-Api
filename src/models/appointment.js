@@ -1,13 +1,17 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
+import {v4 as uuid_v4} from "uuid"
 
 const appointmentSchema = new mongoose.Schema({
-  // Relación con el paciente que solicita la cita
+  _id:{
+    type:String,
+    required:true,
+    default:uuid_v4
+  },
   patient: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  // Relación con el doctor que atenderá la cita
   doctor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -49,4 +53,4 @@ const appointmentSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Appointment', appointmentSchema);
+export default mongoose.model('Appointment', appointmentSchema);

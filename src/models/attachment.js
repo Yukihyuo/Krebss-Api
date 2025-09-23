@@ -1,6 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
+import { v4 as uuid_v4 } from "uuid"
 
 const attachmentSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+    default: uuid_v4
+  },
   patient: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -16,12 +22,10 @@ const attachmentSchema = new mongoose.Schema({
     enum: ['image', 'document', 'pdf', 'xray', 'labResult'],
     required: true
   },
-  // URL donde se almacena el archivo (ej. AWS S3, Google Cloud Storage)
   url: {
     type: String,
     required: true
   },
-  // Relación con la consulta a la que pertenece el archivo
   consultation: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Consultation',
@@ -33,4 +37,4 @@ const attachmentSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Attachment', attachmentSchema);
+export default mongoose.model('Attachment', attachmentSchema);
