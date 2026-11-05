@@ -1,9 +1,15 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
+import { v4 as uuid_v4 } from "uuid"
 
 const patientSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+    default: uuid_v4
+  },
   // Relación con el usuario. El paciente es un tipo de usuario.
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true,
     unique: true
@@ -35,11 +41,6 @@ const patientSchema = new mongoose.Schema({
     type: String,
     trim: true
   }],
-  // Relación con su historial clínico
-  medicalHistory: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'MedicalHistory'
-  }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Patient', patientSchema);
+export default mongoose.model('Patient', patientSchema);

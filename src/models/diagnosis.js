@@ -1,8 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
+import {v4 as uuid_v4} from "uuid"
 
 const diagnosisSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+    default: uuid_v4
+  },
   patient: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
   },
@@ -34,4 +40,4 @@ const diagnosisSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Diagnosis', diagnosisSchema);
+export default mongoose.model('Diagnosis', diagnosisSchema);

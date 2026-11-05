@@ -1,6 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
+import {v4 as uuid_v4} from "uuid"
 
 const userSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+    default: uuid_v4
+  },
   email: {
     type: String,
     required: true,
@@ -21,13 +27,13 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   role: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Role',
     required: true
   },
   // Relación con el consultorio, si el sistema soporta múltiples consultorios
   clinic: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Clinic',
     // Opcional: Puede ser 'null' si un usuario no está asociado a un consultorio específico
     // Por ejemplo, un administrador del sistema
@@ -41,4 +47,4 @@ const userSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);

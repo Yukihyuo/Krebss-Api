@@ -7,8 +7,13 @@ const attachmentSchema = new mongoose.Schema({
     required: true,
     default: uuid_v4
   },
+  doctor: {
+    type: String,
+    ref: 'User',
+    required: true
+  },
   patient: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
   },
@@ -25,11 +30,6 @@ const attachmentSchema = new mongoose.Schema({
   url: {
     type: String,
     required: true
-  },
-  consultation: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Consultation',
-    default: null
   },
   notes: {
     type: String,

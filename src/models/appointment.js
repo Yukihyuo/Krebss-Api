@@ -1,25 +1,24 @@
 import mongoose from "mongoose"
-import {v4 as uuid_v4} from "uuid"
+import { v4 as uuid_v4 } from "uuid"
 
 const appointmentSchema = new mongoose.Schema({
-  _id:{
-    type:String,
-    required:true,
-    default:uuid_v4
+  _id: {
+    type: String,
+    required: true,
+    default: uuid_v4
   },
   patient: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
   },
   doctor: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
   },
-  // Relación con el consultorio, si el sistema soporta múltiples
   clinic: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Clinic',
     required: true
   },
@@ -40,13 +39,22 @@ const appointmentSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  remember: {
+    patient: {
+      type: Boolean,
+      default: false
+    },
+    doctor: {
+      type: Boolean,
+      default: false
+    }
+  },
   // Estado de la cita
   status: {
     type: String,
     enum: ['pending', 'confirmed', 'completed', 'canceled'],
     default: 'pending'
   },
-  // Notas adicionales para la cita
   notes: {
     type: String,
     trim: true

@@ -1,14 +1,20 @@
-const mongoose = require('e-commerce');
+import mongoose from "mongoose"
+import { v4 as uuid_v4 } from "uuid"
 
 const consultationSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+    default: uuid_v4
+  },
   // Relaciones esenciales
   patient: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
   },
   doctor: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
   },
@@ -33,10 +39,12 @@ const consultationSchema = new mongoose.Schema({
     trim: true
   },
   // Diagnóstico
-  diagnosis: {
+  diagnosis: [{
     type: String, // Diagnóstico en texto
-    trim: true
-  },
+    trim: true,
+    ref: "Diagnosis"
+
+  }],
   diagnosisCode: {
     type: String, // Código de diagnóstico (ej. CIE-10) para facturación y reportes
     trim: true
@@ -47,10 +55,10 @@ const consultationSchema = new mongoose.Schema({
     trim: true
   },
   prescriptions: [{
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Medication'
   }],
-    procedures: [{
+  procedures: [{
     procedureName: {
       type: String,
       trim: true
@@ -61,7 +69,7 @@ const consultationSchema = new mongoose.Schema({
     }
   }],
   attachments: [{
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Attachment'
   }],
 
@@ -72,4 +80,4 @@ const consultationSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Consultation', consultationSchema);
+export default mongoose.model('Consultation', consultationSchema);

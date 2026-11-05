@@ -1,12 +1,16 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
+import { v4 as uuid_v4 } from "uuid"
 
 const clinicSchema = new mongoose.Schema({
-  // Información de identificación y contacto
+  _id: {
+    type: String,
+    required: true,
+    default: uuid_v4
+  },
   name: {
     type: String,
     required: true,
     trim: true,
-    unique: true
   },
   address: {
     type: String,
@@ -61,19 +65,19 @@ const clinicSchema = new mongoose.Schema({
   },
   // Relaciones con otros módulos
   doctors: [{
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User'
   }],
   staff: [{
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User'
   }],
   // Administrador principal de la clínica
   admin: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
-    required: true
+    default: null
   },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Clinic', clinicSchema);
+export default mongoose.model('Clinic', clinicSchema);

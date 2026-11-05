@@ -1,8 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
+import {v4 as uuid_v4} from "uuid"
 
 const medicationSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+    default: uuid_v4
+  },
   patient: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
   },
@@ -21,16 +27,10 @@ const medicationSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  // Relación con la consulta que generó la prescripción
-  consultation: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Consultation',
-    default: null
-  },
   notes: {
     type: String,
     trim: true
   }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Medication', medicationSchema);
+export default mongoose.model('Medication', medicationSchema);

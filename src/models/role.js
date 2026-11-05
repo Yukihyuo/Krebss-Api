@@ -1,6 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
+import { v4 as uuid_v4 } from "uuid"
 
 const roleSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+    default: uuid_v4
+  },
   name: {
     type: String,
     required: true,
@@ -14,4 +20,4 @@ const roleSchema = new mongoose.Schema({
   }]
 }, { timestamps: true });
 
-module.exports = mongoose.model('Role', roleSchema);
+export default mongoose.model('Role', roleSchema);
